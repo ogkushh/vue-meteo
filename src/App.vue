@@ -9,7 +9,7 @@
                                 <div class="city-inner">
                                     <input v-model="this.city" type="text" @keyup.enter="fetchCity" class="search">
                                 </div>
-                                <weather-summary></weather-summary>
+                                <weather-summary :weather-info="weatherInfo"></weather-summary>
                             </div>
                         </section>
                         <section class="section section-right">
@@ -91,7 +91,7 @@ export default {
     },
     methods: {
         async fetchCity() {
-            const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${API_key}`)
+            const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${API_key}`)
             this.weatherInfo = response.data
         }
     },

@@ -1,23 +1,23 @@
 <template>
-    <div class="summary">
+    <div v-if="weatherInfo?.weather" class="summary">
         <div
                 style="background-image: url('../assets/img/weather-main/thunderstorm.png');"
                 class="pic-main"
-        ></div>
+        ><h1>{{weatherInfo.name}}</h1></div>
         <div class="weather">
             <div class="temp">
-                14 °C
+                {{Math.round(weatherInfo.main.temp)}} °C
             </div>
             <div class="weather-desc text-block">
-                Thunderstorm
+                {{weatherInfo.weather[0].description}}
             </div>
         </div>
         <div class="city text-block">
-            Paris,
-            FR
+            {{weatherInfo.name}},
+            {{weatherInfo.sys.country}}
         </div>
         <div class="date text-block">
-            Thu, March 16, 2023
+            {{today}}
         </div>
     </div>
 
@@ -25,6 +25,17 @@
 
 <script>
 export default {
+    props: {
+        weatherInfo: {
+            type: [Object, null],
+            required: true,
+        }
+    },
+    data() {
+        return {
+            today: new Date().toLocaleString('en-EN', {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric'})
+        }
+    }
 
 }
 </script>
