@@ -13,58 +13,12 @@
                             </div>
                         </section>
                         <section class="section section-right">
-                            <Highlights></Highlights>
+                            <Highlights :weather-info="weatherInfo"></Highlights>
                         </section>
                     </div>
                     <div class="sections">
-                        <section class="section-bottom">
-                            <div
-                                    class="block-bottom"
-                            >
-                                <div class="block-bottom-inner">
-                                    <div class="block-bottom-pic pic-coords"></div>
-                                    <div class="block-bottom-texts">
-                                        <div class="block-bottom-text-block">
-                                            <div class="block-bottom-text-block-title">
-                                                Longitude: 2.3488
-                                            </div>
-                                            <div class="block-bottom-text-block-desc">
-                                                Longitude measures distance east or west of the prime meridian.
-                                            </div>
-                                        </div>
-                                        <div class="block-bottom-text-block">
-                                            <div class="block-bottom-text-block-title">
-                                                Latitude: 48.8534
-                                            </div>
-                                            <div class="block-bottom-text-block-desc">
-                                                Latitude lines start at the equator (0 degrees latitude) and run east and west, parallel to the equator.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="section-bottom">
-                            <div
-                                    class="block-bottom"
-                            >
-                                <div class="block-bottom-inner">
-                                    <div class="block-bottom-pic pic-humidity"></div>
-                                    <div class="block-bottom-texts">
-                                        <div class="block-bottom-text-block">
-                                            <div class="block-bottom-text-block-title">
-                                                Humidity: 60 %
-                                            </div>
-                                            <div class="block-bottom-text-block-desc">
-                                                Humidity is the concentration of water vapor present in the air. Water vapor, the gaseous state of water, is generally invisible to the human eye.
-                                                <br /><br />
-                                                The same amount of water vapor results in higher relative humidity in cool air than warm air.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        <coordinate :weather-info="weatherInfo"></coordinate>
+                        <humidity :weather-info="weatherInfo"></humidity>
                     </div>
                 </div>
             </div>
@@ -76,22 +30,26 @@
 import {API_key, BASE_URL} from "@/const";
 import WeatherSummary from "@/components/WeatherSummary.vue";
 import Highlights from "@/components/Highlights.vue";
+import Coordinate from "@/components/Coordinate.vue";
+import Humidity from "@/components/humidity.vue";
 import axios from "axios";
 export default {
     components: {
         Highlights,
         WeatherSummary,
+        Coordinate,
+        Humidity,
     },
 
     data() {
         return{
-            city: 'Paris',
+            city: 'Moscow',
             weatherInfo: null
         }
     },
     methods: {
         async fetchCity() {
-            const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${API_key}`)
+            const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&&units=metric&appid=${API_key}&lang=ru`)
             this.weatherInfo = response.data
         }
     },
